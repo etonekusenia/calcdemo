@@ -1,0 +1,62 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Напишите Ваш пример ( доступный формат:7 + 8):");
+            String input = scanner.nextLine();
+            try {
+                String result = calc(input);
+                System.out.println("Результат: " + result);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            scanner.close();
+        }
+    }
+
+    public static String calc(String input) throws Exception {
+        String[] parts = input.split(" ");
+        if (parts.length != 3) {
+            throw new Exception("Ошибка, введите верный формат");
+        }
+
+        int num1;
+        int num2;
+        String operation = parts[1];
+
+        try {
+            num1 = Integer.parseInt(parts[0]);
+            num2 = Integer.parseInt(parts[2]);
+        } catch (NumberFormatException e) {
+            throw new Exception("Неверный формат чисел");
+        }
+
+        if (num1 < 1 || num1 > 10 || num2 < 1 || num2 > 10) {
+            throw new Exception("Допускаются только числа от 1 до 10 включительно");
+        }
+
+        int result;
+        switch (operation) {
+            case "+":
+                result = num1 + num2;
+                break;
+            case "-":
+                result = num1 - num2;
+                break;
+            case "*":
+                result = num1 * num2;
+                break;
+            case "/":
+                switch (num2) {
+                }
+                result = num1 / num2;
+                break;
+            default:
+                throw new Exception("Неверная операция");
+        }
+
+        return String.valueOf(result);
+    }
+}
